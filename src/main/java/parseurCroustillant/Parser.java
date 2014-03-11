@@ -14,7 +14,7 @@ public interface Parser {
 	 * This method parses the input file and returns the generated quiz
 	 * @return The generated quiz
 	 */
-	public Quiz parse() throws NoInputException;
+	public Quiz parse() throws NoInputException, WrongSyntaxException;
 
 	/**
 	 * This method returns the last generated quiz
