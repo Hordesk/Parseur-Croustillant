@@ -2,20 +2,24 @@ package parseurCroustillant;
 
 import org.tsaap.questions.Quiz;
 
-public class Parser {
+public interface Parser {
 
-	public String setInput(String input) {
-		return "";
-	}
+	/**
+	 * This method sets the input file of the parser but does nothing more.
+	 * @param input The content of the input (Not the URL)
+	 */
+	public void setInput(String input);
 
-	public Quiz parse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * This method parses the input file and returns the generated quiz
+	 * @return The generated quiz
+	 */
+	public Quiz parse() throws NoInputException;
 
-	public Quiz getQuiz() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * This method returns the last generated quiz
+	 * @return The last generated quiz
+	 */
+	public Quiz getQuiz();
 
 }
