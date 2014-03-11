@@ -2,7 +2,7 @@ package parseurCroustillant;
 
 import org.tsaap.questions.Quiz;
 
-public class Parseur {
+public class Parser {
 
 	public String setInput(String input) {
 		return "";

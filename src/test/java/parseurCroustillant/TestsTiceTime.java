@@ -9,7 +9,7 @@ import org.tsaap.questions.impl.DefaultAnswerBlock;
 import org.tsaap.questions.impl.DefaultQuestion;
 import org.tsaap.questions.impl.DefaultQuiz;
 
-public class Tests {
+public class TestsTiceTime {
 
 	@Test
 	public void testInterface() {
@@ -41,20 +41,6 @@ public class Tests {
 		
 		// If it goes down to the answers, we assume that everything is put together
 		assertEquals(2, quiz.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().size());
-	}
-	
-	@Test
-	public void testParseur() {
-		//Base use of the parser
-		Parseur p = new Parseur();
-		
-		p.setInput("An input");
-		
-		// Generate the Quiz and returns it
-		Quiz output = p.parse();
-		
-		// Returns the generated quiz, or calls parse if no quiz exists
-		Quiz sameOutput = p.getQuiz();
 	}
 
 }
