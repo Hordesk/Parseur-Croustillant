@@ -12,23 +12,34 @@ import parseurcroustillant.ParserWikiverisity;
 import parseurcroustillant.WrongSyntaxException;
 
 public class TestsParser {
-	
+
 	private Parser p;
-	
+
 	@Before
 	public void setUp() {
 		p = new ParserWikiverisity();
 	}
 
 	@Test
+	public void testWrongSyntaxException() {
+		String msg = "This is a default message";
+		try {
+			throw new WrongSyntaxException(msg);
+		}
+		catch (WrongSyntaxException e){
+			assertEquals(e.getMessage(), msg);
+		}
+	}
+
+	@Test
 	public void testInterface() {
 		//Base use of the parser
 		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
-				 		"|type=\"()\"}\n" +
-				 		" - Vrai\n" +
-				 		" + Faux.";
+				"|type=\"()\"}\n" +
+				" - Vrai\n" +
+				" + Faux.";
 		p.setInput(input);
-		
+
 		// Generate the Quiz and returns it
 		Quiz output = null;
 		try {
@@ -36,7 +47,7 @@ public class TestsParser {
 		} catch (Exception e) {
 			fail ("Should not launch any exception.");
 		}
-		
+
 		// Returns the generated quiz, or calls parse if no quiz exists
 		Quiz sameOutput = p.getQuiz();
 		assertEquals(output, sameOutput);
@@ -64,13 +75,22 @@ public class TestsParser {
 			fail ("Should not launch this exception.");
 		}
 	}
-	
+
+	/*
+	 * Syntaxe WIKIVERSITY :
+	 * 
+	 * { $_QUESTION
+	 * $_MULTILIGNE \n
+	 * | type = "$ () | [] $" } \n
+	 * $ 1 to n $  $ - | + $  $REPONSE
+	 */
+
 	@Test
 	public void testParseWhithoutBeginningBracket() {
 		String input =  "La Suisse est membre de l'Union Européenne.\n" +
-		 		"|type=\"()\"}\n" +
-		 		" - Vrai\n" +
-		 		" + Faux.";
+				"|type=\"()\"}\n" +
+				" - Vrai\n" +
+				" + Faux.";
 		p.setInput(input);
 		try {
 			p.parse();
@@ -81,15 +101,14 @@ public class TestsParser {
 		} catch (NoInputException e) {
 			fail ("Should not launch this exception.");
 		}
-		
 	}
 
 	@Test
 	public void testParseWhithoutEndingBracket() {
 		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
-		 		"|type=\"()\"\n" +
-		 		" - Vrai\n" +
-		 		" + Faux.";
+				"|type=\"()\"\n" +
+				" - Vrai\n" +
+				" + Faux.";
 		p.setInput(input);
 		try {
 			p.parse();
@@ -98,8 +117,9 @@ public class TestsParser {
 		catch(WrongSyntaxException e) {
 			//It's what we want, end
 		} catch (NoInputException e) {
-			fail ("Should not launch this exception.");
-		}
-		
+			fail("Should not launch this exception.");
+		}	
 	}
+
+
 }

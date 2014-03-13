@@ -1,16 +1,10 @@
 package parseurcroustillant;
 
 public class WrongSyntaxException extends Exception {
-
-	private String mMsg;
-
 	public WrongSyntaxException(String msg) {
-		mMsg = msg;
+		super(msg);
 	}
-
-	public String getMessage() {
-		return mMsg;
-	}
+	
 	/**
 	 * 
 	 */

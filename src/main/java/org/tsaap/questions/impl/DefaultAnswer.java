@@ -31,16 +31,16 @@ public class DefaultAnswer implements Answer {
     @Override
     public boolean equals(Object o) {
         if (this == o) {
-        	return true;
+            return true;
         }
         if (o == null || getClass() != o.getClass()) {
-        	return false;
+            return false;
         }
 
         DefaultAnswer that = (DefaultAnswer) o;
 
         if (!identifier.equals(that.identifier)) {
-        	return false;
+           return false;
         }
 
         return true;

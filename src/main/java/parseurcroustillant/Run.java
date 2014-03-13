@@ -1,6 +1,6 @@
 package parseurcroustillant;
 
-public class Run {
+public final class Run {
 
 	private Run() {
 		
