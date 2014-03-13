@@ -1,15 +1,15 @@
-package parseurCroustillant;
+package parseurcroustillant;
 
 public class WrongSyntaxException extends Exception {
 
-	private String _msg;
+	private String mMsg;
 
 	public WrongSyntaxException(String msg) {
-		_msg = msg;
+		mMsg = msg;
 	}
 
 	public String getMessage() {
-		return _msg;
+		return mMsg;
 	}
 	/**
 	 * 

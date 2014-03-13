@@ -20,7 +20,6 @@ import org.tsaap.questions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author franck Silvestre
@@ -31,7 +30,7 @@ public class DefaultQuestion implements Question {
     private List<QuestionBlock> blockList = new ArrayList<QuestionBlock>();
     private List<AnswerBlock> answerBlockList = new ArrayList<AnswerBlock>();
     private List<TextBlock> textBlockList = new ArrayList<TextBlock>();
-    private QuestionType questionType = QuestionType.Undefined;
+    private QuestionType questionType = QuestionType.UNDEFINED;
 
     /**
      * Get the title of the question

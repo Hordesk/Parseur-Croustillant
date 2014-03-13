@@ -30,12 +30,18 @@ public class DefaultAnswer implements Answer {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+        	return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+        	return false;
+        }
 
         DefaultAnswer that = (DefaultAnswer) o;
 
-        if (!identifier.equals(that.identifier)) return false;
+        if (!identifier.equals(that.identifier)) {
+        	return false;
+        }
 
         return true;
     }

@@ -21,25 +21,19 @@ package org.tsaap.questions;
  */
 public enum QuestionType {
 
-    Undefined(0),
-    ExclusiveChoice(1),
-    MultipleChoice(2),
-    TrueFalse(3),
-    FillInTheBlank(4);
-
-    private int code;
-
-    QuestionType(int code) {
-        this.code = code;
-    }
+    UNDEFINED,
+    EXCLUSIVE_CHOICE,
+    MULTIPLE_CHOICE,
+    TRUE_FALSE,
+    FILL_IN_THE_BLANK;
 
     /**
-     * Get the code of que question type
+     * Get the code of the question type
      *
      * @return the code
      */
     public int getCode() {
-        return code;
+        return this.ordinal();
     }
 }
 

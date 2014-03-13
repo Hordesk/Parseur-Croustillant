@@ -1,9 +1,14 @@
-package parseurCroustillant;
+package parseurcroustillant;
 
 public class Run {
 
-	public static void main(String[] args) {
-		System.out.println("Hello, World!");
+	private Run() {
+		
 	}
+	
+	public static void main(String[] args) {
+
+	}
+	
 
 }

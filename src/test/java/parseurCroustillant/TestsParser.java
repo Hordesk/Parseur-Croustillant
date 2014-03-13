@@ -6,6 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.tsaap.questions.Quiz;
 
+import parseurcroustillant.NoInputException;
+import parseurcroustillant.Parser;
+import parseurcroustillant.ParserWikiverisity;
+import parseurcroustillant.WrongSyntaxException;
+
 public class TestsParser {
 	
 	private Parser p;

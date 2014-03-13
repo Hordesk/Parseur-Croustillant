@@ -1,4 +1,4 @@
-package parseurCroustillant;
+package parseurcroustillant;
 
 import org.tsaap.questions.Quiz;
 
