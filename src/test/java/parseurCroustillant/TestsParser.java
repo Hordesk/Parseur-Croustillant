@@ -36,16 +36,18 @@ public class TestsParser {
 		//Base use of the parser
 		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
 				"|type=\"()\"}\n" +
-				" - Vrai\n" +
-				" + Faux.";
+				"- Vrai\n" +
+				"+ Faux.";
 		p.setInput(input);
 
 		// Generate the Quiz and returns it
 		Quiz output = null;
 		try {
 			output = p.parse();
-		} catch (Exception e) {
-			fail ("Should not launch any exception.");
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
 		}
 
 		// Returns the generated quiz, or calls parse if no quiz exists
@@ -89,8 +91,8 @@ public class TestsParser {
 	public void testParseWhithoutBeginningBracket() {
 		String input =  "La Suisse est membre de l'Union Européenne.\n" +
 				"|type=\"()\"}\n" +
-				" - Vrai\n" +
-				" + Faux.";
+				"- Vrai\n" +
+				"+ Faux.";
 		p.setInput(input);
 		try {
 			p.parse();
@@ -107,8 +109,8 @@ public class TestsParser {
 	public void testParseWhithoutEndingBracket() {
 		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
 				"|type=\"()\"\n" +
-				" - Vrai\n" +
-				" + Faux.";
+				"- Vrai\n" +
+				"+ Faux.";
 		p.setInput(input);
 		try {
 			p.parse();
@@ -118,7 +120,212 @@ public class TestsParser {
 			//It's what we want, end
 		} catch (NoInputException e) {
 			fail("Should not launch this exception.");
-		}	
+		}
+	}
+	
+	@Test
+	public void testMissingQuestionType() {
+		String inputWithoutType = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|" + /* "type=\"()\"" +  */"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(inputWithoutType);
+		try {
+			p.parse();
+			fail("Calling parse without a type definition should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+		
+		String inputWithoutPipe = "{La Suisse est membre de l'Union Européenne.\n" +
+				/*"|" + */ "type=\"()\"}\n" +
+				" - Vrai\n" +
+				" + Faux.";
+		p.setInput(inputWithoutPipe);
+		try {
+			p.parse();
+			fail("Calling parse without pipe before the type definition should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+	}
+	
+	@Test
+	public void testWrongQuestionType() {
+		String input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"<>\"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse without a wrong type definition should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+	}
+	
+	@Test
+	public void testQuestionText() {
+		String input = "{" +
+				"|type=\"()\"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse without a question text should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+	}
+	
+	@Test
+	public void testAnswersSyntax() {
+		String input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				"Vrai\n" +
+				"Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Wrong answer syntax. Should launch WrongSyntaxExcpetion.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+		
+		input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				"- Vrai\n" +
+				"+ Faux.\n\n\n";
+		p.setInput(input);
+		try {
+			p.parse();
+		}
+		catch(WrongSyntaxException e) {
+			fail("Should not launch syntax exception.");
+		} catch (NoInputException e) {
+			fail("Should not launch input exception.");
+		}
+	}
+	
+	@Test
+	public void testAnswersNotBeginWithWhitespace() {
+		String input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				" - Vrai\n" +
+				" + Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse withanswers beginning with a whitespace should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+	}
+	
+	@Test
+	public void testAtLeastAGoodAnswer() {
+		String input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				"- Vrai\n" +
+				"- Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse without a correct answer should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+	}
+	
+	@Test
+	public void testNoTextAnswer() {
+		String input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				"- \n" +
+				"+ ";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse withanswer(s) without text should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+	}
+	
+	@Test
+	public void testOrder() {
+		String input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"}\n" +
+				"|type=\"()\"" +
+				"- Vrai\n" +
+				"- Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse with the type definition after second brace should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+		
+		input = "{La Suisse est membre de l'Union Européenne.\n" +
+				"}\n" +
+				"- Vrai\n" +
+				"+ Faux.\n" +
+				"|type=\"()\"";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse with the type definition after the answers should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
+		
+		input = "{La Suisse est membre |type=\"()\" de l'Union Européenne.\n" +
+				"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(input);
+		try {
+			p.parse();
+			fail("Calling parse with the type definition in the question text should launch a WrongSyntaxException.");
+		}
+		catch(WrongSyntaxException e) {
+			//It's what we want, end
+		} catch (NoInputException e) {
+			fail("Should not launch this exception.");
+		}
 	}
 
 
