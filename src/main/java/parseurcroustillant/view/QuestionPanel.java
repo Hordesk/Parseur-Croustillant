@@ -8,7 +8,7 @@ import org.tsaap.questions.Question;
 public abstract class QuestionPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
-	protected Question mQuestion;
+	private Question mQuestion;
 	
 	public QuestionPanel(Question q) {
 		mQuestion = q;
@@ -27,4 +27,8 @@ public abstract class QuestionPanel extends JPanel {
 	 * Process the cancel
 	 */
 	public abstract void processCancel();
+	
+	protected Question getQuestion() {
+		return mQuestion;
+	}
 }

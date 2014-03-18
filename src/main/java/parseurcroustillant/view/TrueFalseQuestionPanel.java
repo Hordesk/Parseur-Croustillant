@@ -8,7 +8,7 @@ import org.tsaap.questions.Question;
 public class TrueFalseQuestionPanel extends QuestionPanel {
 	private static final long serialVersionUID = 1L;
 	
-	ButtonGroup mButtonGroup = new ButtonGroup();
+	private ButtonGroup mButtonGroup = new ButtonGroup();
 
 	public TrueFalseQuestionPanel(Question q) {
 		super(q);

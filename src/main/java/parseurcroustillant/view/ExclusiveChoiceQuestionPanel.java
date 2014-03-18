@@ -13,12 +13,12 @@ import org.tsaap.questions.Question;
 public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 	private static final long serialVersionUID = 1L;
 	
-	List<ButtonGroup> mButtonGroups = new LinkedList<ButtonGroup>();
+	private List<ButtonGroup> mButtonGroups = new LinkedList<ButtonGroup>();
 
 	public ExclusiveChoiceQuestionPanel(Question q) {
 		super(q);
 
-		for(AnswerBlock answerBlock : mQuestion.getAnswerBlockList()) {
+		for(AnswerBlock answerBlock : getQuestion().getAnswerBlockList()) {
 			ButtonGroup group = new ButtonGroup();
 			mButtonGroups.add(group);
 			for(Answer answer : answerBlock.getAnswerList()) {

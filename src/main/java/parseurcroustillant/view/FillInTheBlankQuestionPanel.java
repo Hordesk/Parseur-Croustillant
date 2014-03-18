@@ -8,7 +8,7 @@ public class FillInTheBlankQuestionPanel extends QuestionPanel {
 	private static final long serialVersionUID = 1L;
 	private static final int DEFAULT_LINEEDIT_LENGHT = 50;
 	
-	JTextField mAnswerTextField = new JTextField(DEFAULT_LINEEDIT_LENGHT);
+	private JTextField mAnswerTextField = new JTextField(DEFAULT_LINEEDIT_LENGHT);
 
 	public FillInTheBlankQuestionPanel(Question q) {
 		super(q);

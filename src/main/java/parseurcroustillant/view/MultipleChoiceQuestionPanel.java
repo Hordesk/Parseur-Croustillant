@@ -12,12 +12,12 @@ import org.tsaap.questions.Question;
 public class MultipleChoiceQuestionPanel extends QuestionPanel {
 	private static final long serialVersionUID = 1L;
 	
-	List<JCheckBox> mCheckboxes = new LinkedList<JCheckBox>();
+	private List<JCheckBox> mCheckboxes = new LinkedList<JCheckBox>();
 
 	public MultipleChoiceQuestionPanel(Question q) {
 		super(q);
 
-		for(AnswerBlock answerBlock : mQuestion.getAnswerBlockList()) { 
+		for(AnswerBlock answerBlock : getQuestion().getAnswerBlockList()) { 
 			for(Answer answer : answerBlock.getAnswerList()) {
 				JCheckBox cb = new JCheckBox(answer.getTextValue());
 				mCheckboxes.add(cb);

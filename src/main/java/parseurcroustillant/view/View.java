@@ -6,25 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.sound.sampled.LineEvent;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-
-import org.tsaap.questions.Answer;
-import org.tsaap.questions.AnswerBlock;
 import org.tsaap.questions.Question;
-import org.tsaap.questions.QuestionBlock;
 import org.tsaap.questions.Quiz;
 
 public final class View extends JFrame {
@@ -41,15 +28,13 @@ public final class View extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			// SUBMIT CLICKED
-			Integer score = new Integer(0);
+			int score = 0;
 			for(QuestionPanel panel : mQuestionPanels) {
 				score += panel.processSubmit();
 			}
 			score /= mQuestionPanels.size();
-		
-			//JOptionPane.showMessageDialog(new JFrame(),
-				//    "Vous avez : " + score.toString() + " / 100.");
-			mInfoLabel.setText("Vous avez : " + score.toString() + " / 100.");
+			
+			mInfoLabel.setText("Vous avez : " + score + " / 100.");
 
 			// Show score
 		}
