@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import org.tsaap.questions.Question;
 import org.tsaap.questions.Quiz;
 
-public final class View extends JFrame {
+public final class QuizzWindow extends JFrame {
 	private static final long serialVersionUID = 1704142895469455808L;
 	private static final int DEFAULT_WINDOW_SIZE = 600;
 	
@@ -52,7 +52,7 @@ public final class View extends JFrame {
 		
 	}
 	
-	public View(Quiz quiz) {
+	public QuizzWindow(Quiz quiz) {
 		mQuiz = quiz;
 		setSize(DEFAULT_WINDOW_SIZE, DEFAULT_WINDOW_SIZE);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
