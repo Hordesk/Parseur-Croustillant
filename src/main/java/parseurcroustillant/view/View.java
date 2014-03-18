@@ -1,8 +1,13 @@
 package parseurcroustillant.view;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,21 +24,52 @@ public class View extends JFrame {
 	private static final long serialVersionUID = 1704142895469455808L;
 	
 	private Quiz mQuiz;
+	private JPanel mCentralWidget;
+
+	private class QuizSubmitListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			JButton source = (JButton)e.getSource();
+			System.out.println("Submit clicked!");
+		}
+		
+	}
+	
+	private class QuizCancelListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			JButton source = (JButton)e.getSource();
+			System.out.println("Cancle clicked!");
+		}
+		
+	}
 	
 	public View(Quiz quiz) {
 		mQuiz = quiz;
 		setSize(600, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		mCentralWidget = new JPanel();
+		setLayout(new BorderLayout());
+		add(mCentralWidget, BorderLayout.CENTER);
+		mCentralWidget.setLayout(new BoxLayout(mCentralWidget, BoxLayout.Y_AXIS));
 		
 		showQuiz();
+		
+		JPanel submitPanel = new JPanel();
+		JButton submitButton = new JButton("Submit");
+		JButton cancelButton = new JButton("Cancel");
+		submitButton.addActionListener(new QuizSubmitListener());
+		cancelButton.addActionListener(new QuizCancelListener());
+		submitPanel.add(submitButton);
+		submitPanel.add(cancelButton);
+		add(submitPanel, BorderLayout.SOUTH);
 	}
 	
 	public void showQuiz() {
 		for(Question question : mQuiz.getQuestionList()) {
 			JPanel questionPanel = new JPanel();
 			questionPanel.setBorder(BorderFactory.createTitledBorder(question.getTitle()));
-			add(questionPanel);
+			mCentralWidget.add(questionPanel);
 			switch(question.getQuestionType()) {
 				case EXCLUSIVE_CHOICE:
 					showExclusiveChoice(questionPanel, question);
