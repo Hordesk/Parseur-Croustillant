@@ -22,7 +22,7 @@ public class TrueFalseQuestionPanel extends QuestionPanel {
 	}
 
 	@Override
-	public int processSubmit() {
+	public float processSubmit() {
 		// TODO
 		return 0;
 	}

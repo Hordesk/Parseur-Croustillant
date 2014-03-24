@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.tsaap.questions.QuestionType;
 import org.tsaap.questions.Quiz;
-
 import parseurcroustillant.NoInputException;
 import parseurcroustillant.Parser;
 import parseurcroustillant.ParserWikiverisity;
@@ -327,6 +327,239 @@ public class TestsParser {
 			fail("Should not launch this exception.");
 		}
 	}
+	
+	@Test
+	public void testOutputTitle() {
+		//Base use of the parser
+		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"[]\"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(input);
+		
+		Quiz output = null;
+		try {
+			output = p.parse();
+			
+			assertEquals(output.getQuestionList().get(0).getTitle(), "La Suisse est membre de l'Union Européenne.");
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputTypeSingleChoice() {
+		//Base use of the parser
+		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(input);
+		
+		Quiz output = null;
+		try {
+			output = p.parse();
+			
+			assertEquals(output.getQuestionList().get(0).getQuestionType(), QuestionType.EXCLUSIVE_CHOICE);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputTypeMultipleChoice() {
+		//Base use of the parser
+		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"[]\"}\n" +
+				"- Vrai\n" +
+				"+ Faux.";
+		p.setInput(input);
+		
+		Quiz output = null;
+		try {
+			output = p.parse();
+			
+			assertEquals(output.getQuestionList().get(0).getQuestionType(), QuestionType.MULTIPLE_CHOICE);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputAnswers() {
+		//Base use of the parser
+		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
+				"|type=\"()\"}\n" +
+				"- Vrai\n" +
+				"+ Faux";
+		p.setInput(input);
+		
+		Quiz output = null;
+		try {
+			output = p.parse();
 
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().size(), 2);
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(0).getTextValue(), "Vrai");
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(0).getPercentCredit(), 0.0f, .01f);
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(1).getTextValue(), "Faux");
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(1).getPercentCredit(), 1.0f, .01f);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputAnswersPoints() {
+		//Base use of the parser
+		String input =  "{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4";
+		p.setInput(input);
 
+		Quiz output = null;
+		try {
+			output = p.parse();
+
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(1).getPercentCredit(), 1.0f / 3.0f, .01f);
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(3).getPercentCredit(), 1.0f / 3.0f, .01f);
+			assertEquals(output.getQuestionList().get(0).getAnswerBlockList().get(0).getAnswerList().get(3).getPercentCredit(), 1.0f / 3.0f, .01f);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputMultiQuestions() {
+		//Base use of the parser
+		String input =  "{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4\n" +
+				"\n" +
+				"{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4";
+		p.setInput(input);
+
+		Quiz output = null;
+		try {
+			output = p.parse();
+
+			assertEquals(output.getQuestionList().size(), 2);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputMultiQuestionsNtEnoughtEmptyLinesBetweenEachQuestion() {
+		//Base use of the parser
+		String input =  "{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4\n" +
+				//"\n" +
+				"{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4";
+		p.setInput(input);
+
+		Quiz output = null;
+		try {
+			output = p.parse();
+
+			assertNotEquals(output.getQuestionList().size(), 2);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputMultiQuestionsExactlyAnEmptyLineBetweenEachQuestion() {
+		//Base use of the parser
+		String input =  "{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4\n" +
+				"\n" +
+				"{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4";
+		p.setInput(input);
+
+		Quiz output = null;
+		try {
+			output = p.parse();
+
+			assertEquals(output.getQuestionList().size(), 2);
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			fail("Should not catch syntax exception.");
+		}
+	}
+	
+	@Test
+	public void testOutputMultiQuestionsTooMuchEmptyLinesBetweenEachQuestion() {
+		//Base use of the parser
+		String input =  "{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4\n" +
+				"\n" +
+				"\n" +
+				"\n" +
+				"{Choix multiple.\n" +
+				"|type=\"[]\"}\n" +
+				"- 1\n" +
+				"+ 2\n" +
+				"+ 3\n" +
+				"+ 4";
+		p.setInput(input);
+
+		Quiz output = null;
+		try {
+			output = p.parse();
+
+			fail("Should launch a syntax exception.");
+		} catch (NoInputException e) {
+			fail("Should not catch input exception.");
+		} catch (WrongSyntaxException e ) {
+			// Should have a syntax exception, because a question starts with a new line
+		}
+	}
 }

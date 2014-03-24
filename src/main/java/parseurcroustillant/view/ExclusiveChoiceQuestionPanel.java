@@ -30,7 +30,7 @@ public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 	}
 
 	@Override
-	public int processSubmit() {
+	public float processSubmit() {
 		for(ButtonGroup g : mButtonGroups) {
 			//g.getElements()
 		}

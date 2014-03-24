@@ -21,7 +21,7 @@ public abstract class QuestionPanel extends JPanel {
 	 * Process the submission of the question
 	 * @return the score
 	 */
-	public abstract int processSubmit();
+	public abstract float processSubmit();
 	
 	/**
 	 * Process the cancel

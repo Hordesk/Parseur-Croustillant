@@ -10,11 +10,11 @@ public class UndefinedQuestionPanel extends QuestionPanel {
 	public UndefinedQuestionPanel(Question q) {
 		super(q);
 
-		add(new JLabel("Question en cours d'écriture..."));
+		add(new JLabel("Question en cours d'ï¿½criture..."));
 	}
 
 	@Override
-	public int processSubmit() {
+	public float processSubmit() {
 		// return a bad score
 		return 0;
 	}

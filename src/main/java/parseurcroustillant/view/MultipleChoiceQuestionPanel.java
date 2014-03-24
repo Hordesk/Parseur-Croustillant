@@ -27,7 +27,7 @@ public class MultipleChoiceQuestionPanel extends QuestionPanel {
 	}
 
 	@Override
-	public int processSubmit() {
+	public float processSubmit() {
 		// TODO 
 		return 0;
 	}
