@@ -9,12 +9,13 @@ public class TrueFalseQuestionPanel extends QuestionPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private ButtonGroup mButtonGroup = new ButtonGroup();
+	private JRadioButton vrai, faux;
 
 	public TrueFalseQuestionPanel(Question q) {
 		super(q);
 		
-		JRadioButton vrai = new JRadioButton("Vrai");
-		JRadioButton faux = new JRadioButton("Faux");
+		vrai = new JRadioButton("Vrai");
+		faux = new JRadioButton("Faux");
 		mButtonGroup.add(vrai);
 		mButtonGroup.add(faux);
 		add(vrai);
@@ -23,8 +24,7 @@ public class TrueFalseQuestionPanel extends QuestionPanel {
 
 	@Override
 	public float processSubmit() {
-		// TODO
-		return 0;
+		return (vrai.isSelected() ? 1 : 0);
 	}
 
 	@Override

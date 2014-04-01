@@ -1,7 +1,10 @@
 package parseurcroustillant.view;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
@@ -14,6 +17,7 @@ public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 	private static final long serialVersionUID = 1L;
 	
 	private List<ButtonGroup> mButtonGroups = new LinkedList<ButtonGroup>();
+	private HashMap<JRadioButton, Float> mBoutons = new HashMap<JRadioButton, Float>();
 
 	public ExclusiveChoiceQuestionPanel(Question q) {
 		super(q);
@@ -24,6 +28,7 @@ public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 			for(Answer answer : answerBlock.getAnswerList()) {
 				JRadioButton radio = new JRadioButton(answer.getTextValue());
 				group.add(radio);
+				mBoutons.put(radio, answer.getPercentCredit());
 				add(radio);
 			}
 		}
@@ -31,18 +36,18 @@ public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 
 	@Override
 	public float processSubmit() {
-		for(ButtonGroup g : mButtonGroups) {
-			//g.getElements()
-		}
+		float somme = 0;
+		for(Entry<JRadioButton, Float> entry : mBoutons.entrySet()) 
+		    if(entry.getKey().isSelected())
+		    	somme += entry.getValue();
 		
-		return 0;
+		return somme;
 	}
 
 	@Override
 	public void processCancel() {
-		for(ButtonGroup g : mButtonGroups) {
+		for(ButtonGroup g : mButtonGroups) 
 			g.clearSelection();
-		}
 	}
 
 }

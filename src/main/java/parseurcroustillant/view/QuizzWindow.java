@@ -28,13 +28,14 @@ public final class QuizzWindow extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			// SUBMIT CLICKED
-			int score = 0;
+			float score = 0;
 			for(QuestionPanel panel : mQuestionPanels) {
 				score += panel.processSubmit();
+				System.out.println(score + " " + panel.getX());
 			}
-			score /= mQuestionPanels.size();
+			score = (score / mQuestionPanels.size()) * 100;
 			
-			mInfoLabel.setText("Vous avez : " + score + " / 100.");
+			mInfoLabel.setText("Vous avez : " + (int)score + " / 100.");
 
 			// Show score
 		}
