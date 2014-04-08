@@ -125,6 +125,10 @@ public class ParserWikiverisity implements Parser {
 			throw new WrongSyntaxException("Wrong answer syntax");
 		}
 
+		checkAtLeastOneGoodAnswer(input);
+	}
+
+	private void checkAtLeastOneGoodAnswer(String input) throws WrongSyntaxException {
 		String answers = input.substring(input.indexOf("|type"));
 		if(answers.indexOf('+') < 0) {
 			throw new WrongSyntaxException("Missing a good answer");
