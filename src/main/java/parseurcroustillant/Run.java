@@ -7,7 +7,7 @@ import parseurcroustillant.view.QuizzWindow;
 
 public final class Run {
 	
-	private final static Logger logger = Logger.getLogger(Run.class .getName());
+	private static final Logger LOGGER = Logger.getLogger(Run.class .getName());
 	
 	private Run() {
 
@@ -43,8 +43,8 @@ public final class Run {
 			view.setVisible(true);
 
 		} catch (Exception e) {
-			logger.setLevel(Level.SEVERE);
-			logger.severe(e.getMessage());
+			LOGGER.setLevel(Level.SEVERE);
+			LOGGER.severe(e.getMessage());
 		}
 	}
 
