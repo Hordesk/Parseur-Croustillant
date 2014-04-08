@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
 
 import org.tsaap.questions.Answer;
 import org.tsaap.questions.AnswerBlock;
@@ -44,8 +43,9 @@ public class MultipleChoiceQuestionPanel extends QuestionPanel {
 					ssSomme = 0;
 					break;
 				}
-				else if (entry.getKey().isSelected())
+				else if (entry.getKey().isSelected()) {
 					ssSomme += entry.getValue();
+				}
 			}
 			somme += ssSomme;
 		}

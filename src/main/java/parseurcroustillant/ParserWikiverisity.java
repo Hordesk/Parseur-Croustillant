@@ -117,14 +117,11 @@ public class ParserWikiverisity implements Parser {
 		Matcher matcherAnswers = Pattern.compile("\\}\n(" + regexAnswer + "\n)*" + regexAnswer, Pattern.DOTALL).matcher(input);
 		if(!matcherBraces.find()) {
 			throw new WrongSyntaxException("Missing a brace");
-		}
-		if(!matcherQuestionType.find()) {
+		} else if(!matcherQuestionType.find()) {
 			throw new WrongSyntaxException("Missing question type");
-		}
-		if(!matcherQuestionText.find()) {
+		} else if(!matcherQuestionText.find()) {
 			throw new WrongSyntaxException("Missing question text");
-		}
-		if(!matcherAnswers.find()) {
+		} else if(!matcherAnswers.find()) {
 			throw new WrongSyntaxException("Wrong answer syntax");
 		}
 

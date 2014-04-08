@@ -26,14 +26,15 @@ public final class QuizzWindow extends JFrame {
 
 	private class QuizSubmitListener implements ActionListener {
 
+		private static final int SCORE_MAX = 100;
+
 		public void actionPerformed(ActionEvent e) {
 			// SUBMIT CLICKED
 			float score = 0;
 			for(QuestionPanel panel : mQuestionPanels) {
 				score += panel.processSubmit();
-				System.out.println(score + " " + panel.getX());
 			}
-			score = (score / mQuestionPanels.size()) * 100;
+			score = (score / mQuestionPanels.size()) * SCORE_MAX;
 			
 			mInfoLabel.setText("Vous avez : " + (int)score + " / 100.");
 
