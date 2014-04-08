@@ -108,7 +108,7 @@ public class TestsParser {
 	@Test
 	public void testParseWhithoutEndingBracket() {
 		String input =  "{La Suisse est membre de l'Union Européenne.\n" +
-				"|type=\"()\"\n" +
+				"|type=\"[]\"\n" +
 				"- Vrai\n" +
 				"+ Faux.";
 		p.setInput(input);
@@ -195,7 +195,7 @@ public class TestsParser {
 	@Test
 	public void testAnswersSyntax() {
 		String input = "{La Suisse est membre de l'Union Européenne.\n" +
-				"|type=\"()\"}\n" +
+				"|type=\"[]\"}\n" +
 				"Vrai\n" +
 				"Faux.";
 		p.setInput(input);
@@ -210,7 +210,7 @@ public class TestsParser {
 		}
 		
 		input = "{La Suisse est membre de l'Union Européenne.\n" +
-				"|type=\"()\"}\n" +
+				"|type=\"[]\"}\n" +
 				"- Vrai\n" +
 				"+ Faux.\n\n\n";
 		p.setInput(input);

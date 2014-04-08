@@ -1,8 +1,10 @@
-package parseurcroustillant;
+package parseurCroustillant;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import parseurcroustillant.Parser;
+import parseurcroustillant.ParserWikiverisity;
 import parseurcroustillant.view.QuizzWindow;
 
 public final class Run {
