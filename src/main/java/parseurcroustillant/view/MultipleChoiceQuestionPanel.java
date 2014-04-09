@@ -33,7 +33,10 @@ public class MultipleChoiceQuestionPanel extends QuestionPanel {
 		}
 	}
 
-	@Override
+	/**
+	 * Process the submission of the question
+	 * @return the score
+	 */
 	public float processSubmit() {
 		float somme = 0;
 		for (HashMap<JCheckBox, Float> map : mBoutons) {
@@ -53,7 +56,9 @@ public class MultipleChoiceQuestionPanel extends QuestionPanel {
 		return somme;
 	}
 
-	@Override
+	/**
+	 * Process the cancel
+	 */
 	public void processCancel() {
 		for(JCheckBox cb : mCheckboxes) {
 			cb.setSelected(false);

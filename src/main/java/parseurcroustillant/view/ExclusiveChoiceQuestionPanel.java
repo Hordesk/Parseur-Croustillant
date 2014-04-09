@@ -34,7 +34,10 @@ public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 		}
 	}
 
-	@Override
+	/**
+	 * Process the submission of the question
+	 * @return the score
+	 */
 	public float processSubmit() {
 		float somme = 0;
 		for(Entry<JRadioButton, Float> entry : mBoutons.entrySet()) {
@@ -46,7 +49,9 @@ public class ExclusiveChoiceQuestionPanel extends QuestionPanel {
 		return somme;
 	}
 
-	@Override
+	/**
+	 * Process the cancel
+	 */
 	public void processCancel() {
 		for(ButtonGroup g : mButtonGroups) {
 			g.clearSelection();

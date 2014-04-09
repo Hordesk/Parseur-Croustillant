@@ -22,12 +22,17 @@ public class TrueFalseQuestionPanel extends QuestionPanel {
 		add(faux);
 	}
 
-	@Override
+	/**
+	 * Process the submission of the question
+	 * @return the score
+	 */
 	public float processSubmit() {
 		return (vrai.isSelected() ? 1 : 0);
 	}
 
-	@Override
+	/**
+	 * Process the cancel
+	 */
 	public void processCancel() {
 		mButtonGroup.clearSelection();
 	}

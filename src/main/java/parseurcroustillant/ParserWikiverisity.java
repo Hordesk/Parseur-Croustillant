@@ -23,7 +23,10 @@ public class ParserWikiverisity implements Parser {
 	private String mInput = "";
 	private Quiz mOutput;
 
-
+    /**
+     * La méthode définit la chaine à parser
+     * @param input La chaine à parser (Pas un lien)
+     */
 	public void setInput(String input) {
 		mInput = input;
 		while(mInput.endsWith(NEW_LINE)) {
@@ -31,10 +34,19 @@ public class ParserWikiverisity implements Parser {
 		}
 	}
 
+    /**
+     * This method parses the input file and returns the generated quiz
+     * La méthode parse la chaine stoquée et retourne le quiz généré
+     * @return Le Quiz généré
+     */
 	public Quiz getQuiz() {
 		return mOutput;
 	}
 
+    /**
+     * La méthode retourne le dernier Quiz généré
+     * @return Le dernier Quiz
+     */
 	public Quiz parse() throws NoInputException, WrongSyntaxException {
 		if (mInput.isEmpty()) {
 			throw new NoInputException();

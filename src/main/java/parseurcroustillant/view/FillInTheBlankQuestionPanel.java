@@ -29,7 +29,10 @@ public class FillInTheBlankQuestionPanel extends QuestionPanel {
 		}
 	}
 
-	@Override
+	/**
+	 * Process the submission of the question
+	 * @return the score
+	 */
 	public float processSubmit() {
 		float somme = 0;
 		for(Entry<JTextField, SimpleEntry<String, Float>> entry : mTextField.entrySet()) {
@@ -41,7 +44,9 @@ public class FillInTheBlankQuestionPanel extends QuestionPanel {
 		return somme;
 	}
 
-	@Override
+	/**
+	 * Process the cancel
+	 */
 	public void processCancel() {
 		mAnswerTextField.setText("");
 	}

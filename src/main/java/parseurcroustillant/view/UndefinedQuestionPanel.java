@@ -13,13 +13,18 @@ public class UndefinedQuestionPanel extends QuestionPanel {
 		add(new JLabel("Question en cours d'�criture..."));
 	}
 
-	@Override
+	/**
+	 * Process the submission of the question
+	 * @return the score
+	 */
 	public float processSubmit() {
 		// return a bad score
 		return 0;
 	}
 
-	@Override
+	/**
+	 * Process the cancel
+	 */
 	public void processCancel() {
 		
 	}
